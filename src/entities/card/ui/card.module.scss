@@ -1,0 +1,152 @@
+.card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+    transition: all 0.2s ease;
+    border: 1px solid #e5e7eb;
+    width: 100%;
+
+    &:hover {
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+        transform: translateY(-2px);
+    }
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 20px;
+        gap: 16px;
+    }
+
+    &__headerText {
+        flex: 1;
+        min-width: 0;
+    }
+
+    &__title {
+        margin: 0 0 8px 0;
+        font-size: 1.25rem;
+        font-weight: 600;
+        line-height: 1.4;
+        color: #1f2937;
+
+        &_ghosted {
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        &_small {
+            font-size: 0.875rem;
+            margin: 0;
+        }
+    }
+
+    &__number {
+        background: #f3f4f6;
+        border-radius: 8px;
+        padding: 8px 12px;
+        font-weight: 600;
+        color: #374151;
+        font-size: 0.875rem;
+        flex-shrink: 0;
+        min-width: 40px;
+        text-align: center;
+    }
+
+    &__answer {
+        background: #f8fafc;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px 0;
+        border-left: 4px solid #3b82f6;
+        animation: slideDown 0.3s ease;
+
+        p {
+            margin: 0;
+            color: #374151;
+            line-height: 1.6;
+        }
+    }
+
+    button {
+        width: 100%;
+        background: #3b82f6;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 12px 16px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+
+        &:hover {
+            background: #2563eb;
+            transform: translateY(-1px);
+        }
+
+        &:active {
+            transform: translateY(0);
+        }
+
+        &:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+
+        span {
+            display: flex;
+            align-items: center;
+        }
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .card {
+        padding: 20px;
+
+        &__header {
+            margin-bottom: 16px;
+        }
+
+        &__title {
+            font-size: 1.125rem;
+
+            &_small {
+                font-size: 0.8125rem;
+            }
+        }
+
+        &__number {
+            padding: 6px 10px;
+            font-size: 0.8125rem;
+        }
+
+        &__answer {
+            padding: 16px;
+            margin: 16px 0;
+        }
+
+        button {
+            padding: 14px 16px;
+            font-size: 0.9375rem;
+        }
+    }
+}
