@@ -1,13 +1,14 @@
+"use client"
+
 import clsx from "clsx"
 import { useQuestionCards } from "../lib/use-question-cards"
-import cl from "./cards.module.scss"
-import { Progress } from "@shared/ui/progress"
+import cl from "./questions.module.scss"
 import { Card } from "@entities/card"
 import { ResetIcon, ShuffleIcon } from "@radix-ui/react-icons"
-import { Button } from "@shared/ui/button"
+import { Button, Progress } from "@radix-ui/themes"
 
-export function CardsPage() {
-    const { data, resetCards, showNextCard, showPreviousCard, shuffleCards} =
+export function QuestionsPage() {
+    const { data, resetCards, showNextCard, showPreviousCard, shuffleCards } =
         useQuestionCards()
 
     return (
@@ -21,7 +22,9 @@ export function CardsPage() {
                 <Progress
                     className={cl.cardsPage__progress}
                     value={
-                        ((data.currentCardIndex + 1) / data.sourceOfTruth.length) * 100
+                        ((data.currentCardIndex + 1) /
+                            data.sourceOfTruth.length) *
+                        100
                     }
                 />
             </div>
