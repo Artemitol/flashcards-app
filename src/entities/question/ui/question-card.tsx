@@ -1,15 +1,14 @@
-import type { CardModel } from "@entities/card/model/domain"
-import cl from "./card.module.scss"
+import cl from "./question-card.module.scss"
 import clsx from "clsx"
 import { useEffect, useState } from "react"
 import { ChevronDownIcon, ChevronUpIcon } from "@radix-ui/react-icons"
+import { QuestionModel } from "../model/domain"
 
-type CardProps = {
-    card: CardModel
+type QuestionCardProps = {
+    card: QuestionModel | null | undefined
 }
 
-export function Card({ card }: CardProps) {
-    const { answer, group, id, question } = card
+export function QuestionCard({ card }: QuestionCardProps) {
     const [isAnswerRevealed, setIsAnswerRevealed] = useState<boolean>(false)
 
     useEffect(() => {
@@ -20,11 +19,15 @@ export function Card({ card }: CardProps) {
         setIsAnswerRevealed((prev) => !prev)
     }
 
+    if (!card) {
+        return <div>Нет данных по вопросу(</div>
+    }
+
     return (
         <article className={cl.card}>
             <div className={cl.card__header}>
                 <div className={cl.card__headerText}>
-                    <h3 className={cl.card__title}>{question}</h3>
+                    <h3 className={cl.card__title}>{card.question}</h3>
                     <h4
                         className={clsx(
                             cl.card__title,
@@ -32,16 +35,16 @@ export function Card({ card }: CardProps) {
                             cl.card__title_small
                         )}
                     >
-                        Тема: {group.name}
+                        Тема: {card.group.name}
                     </h4>
                 </div>
                 <div className={cl.card__number}>
-                    <span>{id}</span>
+                    <span>{card.id}</span>
                 </div>
             </div>
             {isAnswerRevealed && (
                 <div className={cl.card__answer}>
-                    <p>{answer}</p>
+                    <p>{card.answer}</p>
                 </div>
             )}
             <button type='button' onClick={clickHandler}>

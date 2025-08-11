@@ -1,6 +1,6 @@
-import type { CardModel } from "../model/domain"
+import type { QuestionModel } from "../model/domain"
 
-export const QuestionCardsConfig: CardModel[] = [
+export const QuestionCardsConfig: QuestionModel[] = [
     // HTML
     {
         id: 1,
