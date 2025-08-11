@@ -1,11 +1,11 @@
-export type CardModel = {
-    id: CardId
+export type QuestionModel = {
+    id: QuestionId
     group: QuestionsGroup
     question: string
     answer: string
 }
 
-export type CardId = number
+export type QuestionId = number
 
 export type QuestionsGroup = {
     id: number

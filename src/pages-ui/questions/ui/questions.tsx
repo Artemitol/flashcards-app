@@ -3,33 +3,29 @@
 import clsx from "clsx"
 import { useQuestionCards } from "../lib/use-question-cards"
 import cl from "./questions.module.scss"
-import { Card } from "@entities/card"
+import { QuestionCard } from "@entities/question"
 import { ResetIcon, ShuffleIcon } from "@radix-ui/react-icons"
 import { Button, Progress } from "@radix-ui/themes"
 
 export function QuestionsPage() {
-    const { data, resetCards, showNextCard, showPreviousCard, shuffleCards } =
+    const {currentNumber, maxAmount, data, resetCards, showNextCard, showPreviousCard, shuffleCards } =
         useQuestionCards()
 
     return (
         <section className={cl.cardsPage}>
             <div className={cl.cardsPage__header}>
                 <div className={clsx(cl.cardPage__counter, cl.counter)}>
-                    <span>{data.currentCardIndex + 1}</span>
+                    <span>{currentNumber}</span>
                     <span>из</span>
-                    <span>{data.sourceOfTruth.length}</span>
+                    <span>{maxAmount}</span>
                 </div>
                 <Progress
                     className={cl.cardsPage__progress}
-                    value={
-                        ((data.currentCardIndex + 1) /
-                            data.sourceOfTruth.length) *
-                        100
-                    }
+                    value={(currentNumber / data.sourceOfTruth.length) * 100}
                 />
             </div>
             <div className={cl.cardsPage__cardWrapper}>
-                <Card card={data.currentCard} />
+                <QuestionCard card={data.currentCard} />
             </div>
             <div className={cl.cardsPage__actions}>
                 <Button
