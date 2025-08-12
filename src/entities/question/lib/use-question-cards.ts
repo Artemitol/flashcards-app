@@ -10,19 +10,19 @@ export function useQuestionCards() {
 
     const showNextCard = useCallback(() => {
         dispatch(questionActions.showNext())
-    }, [])
+    }, [dispatch])
 
     const showPreviousCard = useCallback(() => {
         dispatch(questionActions.showPrevious())
-    }, [])
+    }, [dispatch])
 
     const shuffleCards = useCallback(() => {
         dispatch(questionActions.shuffle())
-    }, [])
+    }, [dispatch])
 
     const resetCards = useCallback(() => {
         dispatch(questionActions.reset())
-    }, [])
+    }, [dispatch])
 
     return {
         data,
@@ -30,7 +30,7 @@ export function useQuestionCards() {
         showPreviousCard,
         shuffleCards,
         resetCards,
-        currentNumber, 
-        maxAmount
+        currentNumber,
+        maxAmount,
     }
 }

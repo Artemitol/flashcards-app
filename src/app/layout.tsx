@@ -1,6 +1,4 @@
-import { Theme } from "@radix-ui/themes"
-import "@radix-ui/themes/styles.css"
-import StoreProvider from "@shared/ui/store-provider"
+import { App } from "@app-layer/ui/app"
 
 export default function AppNextLayout({
     children,
@@ -13,9 +11,7 @@ export default function AppNextLayout({
                 <title>Flip Master</title>
             </head>
             <body>
-                <Theme>
-                    <StoreProvider>{children}</StoreProvider>
-                </Theme>
+                <App>{children}</App>
             </body>
         </html>
     )

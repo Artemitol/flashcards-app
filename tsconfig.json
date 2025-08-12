@@ -24,11 +24,11 @@
     ],
     /* Aliases */
     "paths": {
-      "@app/*": [
-        "./src/app/*"
+      "@app-layer/*": [
+        "./src/app-layer/*"
       ],
       "@pages/*": [
-        "./src/pages-ui/*"
+        "./src/pages-layer/*"
       ],
       "@widgets/*": [
         "./src/widgets/*"

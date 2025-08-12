@@ -1,15 +1,21 @@
 "use client"
 
 import clsx from "clsx"
-import { useQuestionCards } from "../lib/use-question-cards"
-import cl from "./questions.module.scss"
-import { QuestionCard } from "@entities/question"
+import { QuestionCard, useQuestionCards } from "@entities/question"
 import { ResetIcon, ShuffleIcon } from "@radix-ui/react-icons"
 import { Button, Progress } from "@radix-ui/themes"
+import cl from "./questions.module.scss"
 
 export function QuestionsPage() {
-    const {currentNumber, maxAmount, data, resetCards, showNextCard, showPreviousCard, shuffleCards } =
-        useQuestionCards()
+    const {
+        currentNumber,
+        maxAmount,
+        data,
+        resetCards,
+        showNextCard,
+        showPreviousCard,
+        shuffleCards,
+    } = useQuestionCards()
 
     return (
         <section className={cl.cardsPage}>
