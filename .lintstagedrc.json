@@ -1,0 +1,7 @@
+{
+    "**/src/**/*.{js,jsx,ts,tsx,html}": ["prettier --write", "next lint --fix"],
+    "**/src/**/*.{ts,tsx}": [
+        "bash -c 'npm run lint:types'"
+    ],
+    "**/src/**/*.{scss, css}": ["prettier --write"]
+}
