@@ -9,7 +9,7 @@
     "lint": "next lint",
     "lint:format": "prettier --write ./src",
     "lint:auto-fix": "next lint --fix",
-    "lint:types": "tsc",
+    "lint:types": "tsc --noEmit --pretty --skipLibCheck -p tsconfig.json",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
