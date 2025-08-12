@@ -1,4 +1,4 @@
-import { QuestionsPage } from "@/pages-ui/questions"
+import { QuestionsPage } from "@/pages-layer/questions"
 
 export default function QuestionsNextPage() {
     return <QuestionsPage />

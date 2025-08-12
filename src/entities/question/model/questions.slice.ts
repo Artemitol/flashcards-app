@@ -67,6 +67,7 @@ export const questionsSlice = createSlice({
 
             state.cards = [...state.sourceOfTruth]
             state.currentCardIndex = newIndex
+            state.isShuffled = false
             state.currentCard =
                 newIndex !== null ? state.sourceOfTruth[newIndex] : null
         },
@@ -82,7 +83,7 @@ export const questionsSlice = createSlice({
             }
         })
     },
-}).injectInto(appReducer)
+})
 
 export const { actions: questionActions, selectors: questionSelectors } =
     questionsSlice
