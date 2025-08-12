@@ -1,4 +1,4 @@
-import { PreloadDataState } from "@shared/model/store"
+// import { PreloadDataState } from "@shared/model/store"
 import { DataToPrefetchConfig } from "../config/data-to-prefetch"
 
 export async function prefetchData() {

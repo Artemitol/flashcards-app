@@ -83,7 +83,7 @@ export const questionsSlice = createSlice({
             }
         })
     },
-})
+}).injectInto(appReducer)
 
 export const { actions: questionActions, selectors: questionSelectors } =
     questionsSlice

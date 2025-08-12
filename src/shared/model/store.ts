@@ -1,7 +1,6 @@
-import { questionsSlice } from "@entities/question"
 import { combineSlices, configureStore } from "@reduxjs/toolkit"
 
-export const appReducer = combineSlices(questionsSlice)
+export const appReducer = combineSlices({})
 
 export const makeStore = (preloadedState?: PreloadDataState) =>
     configureStore({
