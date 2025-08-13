@@ -75,13 +75,16 @@ export const questionsSlice = createSlice({
     selectors: {
         all: (state) => state,
         cardsAmount: (state) => state.sourceOfTruth.length,
-        currentNumber: createSelector((state: State) => state.currentCardIndex, (index) => {
-            if (index !== null) {
-                return index + 1
-            } else {
-                return 0
+        currentNumber: createSelector(
+            (state: State) => state.currentCardIndex,
+            (index) => {
+                if (index !== null) {
+                    return index + 1
+                } else {
+                    return 0
+                }
             }
-        })
+        ),
     },
 }).injectInto(appReducer)
 
