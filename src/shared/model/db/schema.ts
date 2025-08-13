@@ -1,3 +1,5 @@
+import "server-only"
+
 import {
     pgTable,
     serial,
@@ -6,13 +8,12 @@ import {
     integer,
     timestamp,
     primaryKey,
-    foreignKey,
 } from "drizzle-orm/pg-core"
 import { relations } from "drizzle-orm"
 
 export const users = pgTable("user", {
     id: serial("id").primaryKey(),
-    username: varchar("username", { length: 20 }).unique(),
+    username: varchar("username", { length: 20 }).unique().notNull(),
 
     email: text("email").unique(),
     password: text("password").notNull(),

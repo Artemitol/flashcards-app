@@ -4,7 +4,7 @@ import "@radix-ui/themes/styles.css"
 
 export async function App({ children }: React.PropsWithChildren) {
     return (
-        <Theme>
+        <Theme appearance='dark'>
             <StoreProvider>{children}</StoreProvider>
         </Theme>
     )

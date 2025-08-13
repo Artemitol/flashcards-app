@@ -39,6 +39,9 @@
       "@entities/*": [
         "./src/entities/*"
       ],
+      "@kernel/*": [
+        "./src/kernel/*"
+      ],
       "@shared/*": [
         "./src/shared/*"
       ],
