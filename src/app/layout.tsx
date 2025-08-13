@@ -6,7 +6,7 @@ export default function AppNextLayout({
     children: React.ReactNode
 }) {
     return (
-        <html lang='en'>
+        <html lang='en' suppressHydrationWarning>
             <head>
                 <title>Flip Master</title>
             </head>

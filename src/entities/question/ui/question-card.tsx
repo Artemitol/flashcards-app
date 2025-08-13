@@ -1,7 +1,7 @@
 import cl from "./question-card.module.scss"
 import clsx from "clsx"
 import { useEffect, useState } from "react"
-import { ChevronDownIcon, ChevronUpIcon } from "@radix-ui/react-icons"
+import { ChevronDownIcon, ChevronUpIcon } from "lucide-react"
 import { QuestionModel } from "../model/domain"
 
 type QuestionCardProps = {

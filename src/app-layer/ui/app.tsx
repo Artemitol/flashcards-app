@@ -1,11 +1,19 @@
+import { AppLayout } from "@app-layer/layouts/app-layout"
 import { StoreProvider } from "../providers/store-provider"
-import { Theme } from "@radix-ui/themes"
-import "@radix-ui/themes/styles.css"
+import { ThemeProvider } from "../providers/theme-provider"
+import "./index.css"
 
 export async function App({ children }: React.PropsWithChildren) {
     return (
-        <Theme appearance='dark'>
-            <StoreProvider>{children}</StoreProvider>
-        </Theme>
+        <ThemeProvider
+            attribute='class'
+            defaultTheme='system'
+            enableSystem
+            disableTransitionOnChange
+        >
+            <StoreProvider>
+                <AppLayout>{children}</AppLayout>
+            </StoreProvider>
+        </ThemeProvider>
     )
 }

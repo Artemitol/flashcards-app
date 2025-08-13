@@ -2,9 +2,9 @@
 
 import clsx from "clsx"
 import { QuestionCard, useQuestionCards } from "@entities/question"
-import { ResetIcon, ShuffleIcon } from "@radix-ui/react-icons"
 import { Button, Progress } from "@radix-ui/themes"
 import cl from "./questions.module.scss"
+import { ShuffleIcon, LucideRotateCcw } from "lucide-react"
 
 export function QuestionsPage() {
     const {
@@ -59,7 +59,7 @@ export function QuestionsPage() {
                 >
                     <span>Восстановить</span>
                     <span>
-                        <ResetIcon />
+                        <LucideRotateCcw />
                     </span>
                 </Button>
                 <Button
