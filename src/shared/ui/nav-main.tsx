@@ -1,6 +1,6 @@
 "use client"
 
-import { ChevronRight, type LucideIcon } from "lucide-react"
+import { ChevronRight } from "lucide-react"
 
 import {
     Collapsible,
@@ -19,20 +19,18 @@ import {
     SidebarMenuSubItem,
 } from "@shared/ui/sidebar"
 
-export function NavMain({
-    items,
-}: {
-    items: {
+export type NavLink = {
+    title: string
+    url: string
+    icon: React.ReactNode
+    isActive?: boolean
+    items?: {
         title: string
         url: string
-        icon: LucideIcon
-        isActive?: boolean
-        items?: {
-            title: string
-            url: string
-        }[]
     }[]
-}) {
+}
+
+export function NavMain({ items }: { items: NavLink[] }) {
     return (
         <SidebarGroup>
             <SidebarGroupLabel>Platform</SidebarGroupLabel>
@@ -46,7 +44,7 @@ export function NavMain({
                         <SidebarMenuItem>
                             <SidebarMenuButton asChild tooltip={item.title}>
                                 <a href={item.url}>
-                                    <item.icon />
+                                    {item.icon}
                                     <span>{item.title}</span>
                                 </a>
                             </SidebarMenuButton>

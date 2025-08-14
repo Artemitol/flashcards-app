@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Command, Settings2, Users } from "lucide-react"
+import { Command } from "lucide-react"
 import { NavMain } from "@shared/ui/nav-main"
 import { NavUser } from "@shared/ui/nav-user"
 import {
@@ -13,34 +13,19 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@shared/ui/sidebar"
+import type { NavLink } from "@shared/ui/nav-main"
 import Link from "next/link"
-
-const data = {
-    user: {
-        name: "shadcn",
-        email: "m@example.com",
-        avatar: "/avatars/shadcn.jpg",
-    },
-    navMain: [
-        {
-            title: "Community quizzes",
-            url: "#",
-            icon: Users,
-            isActive: true,
-        },
-        {
-            title: "Settings",
-            url: "#",
-            icon: Settings2,
-        },
-    ],
-}
 
 type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
     footerSlot?: React.ReactNode
+    navigation: NavLink[]
 }
 
-export function AppSidebar({ footerSlot, ...props }: AppSidebarProps) {
+export function AppSidebar({
+    footerSlot,
+    navigation,
+    ...props
+}: AppSidebarProps) {
     return (
         <Sidebar variant='inset' {...props}>
             <SidebarHeader>
@@ -65,10 +50,16 @@ export function AppSidebar({ footerSlot, ...props }: AppSidebarProps) {
                 </SidebarMenu>
             </SidebarHeader>
             <SidebarContent>
-                <NavMain items={data.navMain} />
+                <NavMain items={navigation} />
             </SidebarContent>
             <SidebarFooter>
-                {footerSlot || <NavUser user={data.user} />}
+                {footerSlot || (
+                    <NavUser
+                        user={{
+                            name: "user",
+                        }}
+                    />
+                )}
             </SidebarFooter>
         </Sidebar>
     )

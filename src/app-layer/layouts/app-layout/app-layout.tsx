@@ -1,3 +1,4 @@
+import { NavBarConfig } from "../../config/navbar-links"
 import { AppSidebar } from "@shared/ui/app-sidebar"
 import {
     Breadcrumb,
@@ -26,6 +27,7 @@ export function AppLayout({ children }: PropsWithChildren) {
                         <AuthActionsServer />
                     </Suspense>
                 }
+                navigation={NavBarConfig}
             />
             <SidebarInset>
                 <header className='flex h-16 shrink-0 items-center gap-2'>
