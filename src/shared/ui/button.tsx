@@ -3,6 +3,10 @@ import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@shared/lib/shadcn/utils"
+import { useId, useState } from "react"
+import { Label } from "./label"
+import { Input } from "./input"
+import { EyeIcon, EyeOffIcon } from "lucide-react"
 
 const buttonVariants = cva(
     "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
@@ -55,4 +59,34 @@ function Button({
     )
 }
 
-export { Button, buttonVariants }
+function PasswordInput({ ...rest }: React.ComponentProps<"input">) {
+    const [isPasswordShown, setIsPasswordShown] = useState<boolean>(false)
+    const passwordId = useId()
+
+    const eyeIconClickHandler = () => {
+        setIsPasswordShown((prev) => !prev)
+    }
+
+    return (
+        <>
+            <Label htmlFor={passwordId}>Пароль</Label>
+            <div className='relative '>
+                <Input
+                    id={passwordId}
+                    type={isPasswordShown ? "text" : "password"}
+                    {...rest}
+                />
+                <Button
+                    type='button'
+                    variant='ghost'
+                    className='absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent'
+                    onClick={eyeIconClickHandler}
+                >
+                    {isPasswordShown ? <EyeOffIcon /> : <EyeIcon />}
+                </Button>
+            </div>
+        </>
+    )
+}
+
+export { Button, buttonVariants, PasswordInput }

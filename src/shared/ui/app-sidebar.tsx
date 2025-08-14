@@ -1,23 +1,8 @@
 "use client"
 
 import * as React from "react"
-import {
-    BookOpen,
-    Bot,
-    Command,
-    Frame,
-    LifeBuoy,
-    Map,
-    PieChart,
-    Send,
-    Settings2,
-    SquareTerminal,
-    Users,
-} from "lucide-react"
-
+import { Command, Settings2, Users } from "lucide-react"
 import { NavMain } from "@shared/ui/nav-main"
-import { NavProjects } from "@shared/ui/nav-projects"
-import { NavSecondary } from "@shared/ui/nav-secondary"
 import { NavUser } from "@shared/ui/nav-user"
 import {
     Sidebar,
@@ -51,7 +36,11 @@ const data = {
     ],
 }
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
+    footerSlot?: React.ReactNode
+}
+
+export function AppSidebar({ footerSlot, ...props }: AppSidebarProps) {
     return (
         <Sidebar variant='inset' {...props}>
             <SidebarHeader>
@@ -79,7 +68,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <NavMain items={data.navMain} />
             </SidebarContent>
             <SidebarFooter>
-                <NavUser user={data.user} />
+                {footerSlot || <NavUser user={data.user} />}
             </SidebarFooter>
         </Sidebar>
     )

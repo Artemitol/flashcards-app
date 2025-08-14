@@ -8,7 +8,6 @@ import {
     LogOut,
     Sparkles,
 } from "lucide-react"
-
 import { Avatar, AvatarFallback, AvatarImage } from "@shared/ui/avatar"
 import {
     DropdownMenu,
@@ -25,14 +24,15 @@ import {
     SidebarMenuItem,
     useSidebar,
 } from "@shared/ui/sidebar"
+import { Skeleton } from "./skeleton"
 
 export function NavUser({
     user,
 }: {
     user: {
         name: string
-        email: string
-        avatar: string
+        email?: string
+        avatar?: string
     }
 }) {
     const { isMobile } = useSidebar()
@@ -52,7 +52,7 @@ export function NavUser({
                                     alt={user.name}
                                 />
                                 <AvatarFallback className='rounded-lg'>
-                                    CN
+                                    XX
                                 </AvatarFallback>
                             </Avatar>
                             <div className='grid flex-1 text-left text-sm leading-tight'>
@@ -124,5 +124,17 @@ export function NavUser({
                 </DropdownMenu>
             </SidebarMenuItem>
         </SidebarMenu>
+    )
+}
+
+export function UserSkeleton() {
+    return (
+        <div className='flex items-center space-x-2'>
+            <Skeleton className='h-12 w-12 rounded-full' />
+            <div className='space-y-2'>
+                <Skeleton className='h-3 w-[100px]' />
+                <Skeleton className='h-3 w-[150px]' />
+            </div>
+        </div>
     )
 }

@@ -1,19 +1,18 @@
 "use server"
 
 import { z } from "zod"
-import { FormState } from "../model/domain"
+import { LoginFormState } from "../model/domain"
 import { sessionService, verifyUserPassword } from "@entities/user/server"
-import { redirect } from "next/navigation"
 
 const formDataSchema = z.object({
     login: z.string(),
     password: z.string(),
 })
 
-export async function signInAction(
-    prevState: FormState,
+export async function loginAction(
+    prevState: LoginFormState,
     formData: FormData
-): Promise<FormState> {
+): Promise<LoginFormState> {
     const objectFormData = Object.fromEntries(formData.entries())
     const parsedData = formDataSchema.safeParse(objectFormData)
 
@@ -28,7 +27,7 @@ export async function signInAction(
                 login: loginError?.join(", "),
                 password: passwordError?.join(", "),
             },
-        } as FormState
+        } satisfies LoginFormState
     }
 
     const verification = await verifyUserPassword({
@@ -40,14 +39,19 @@ export async function signInAction(
         await sessionService.createSession({
             userId: verification.value.id,
             username: verification.value.username,
+            email: verification.value.email,
         })
 
-        redirect("/tasks")
+        return {
+            errors: {},
+            formData,
+            message: null,
+        }
     }
 
     return {
         errors: {},
         formData,
         message: verification.error.split("-").join(" "),
-    } as FormState
+    } satisfies LoginFormState
 }

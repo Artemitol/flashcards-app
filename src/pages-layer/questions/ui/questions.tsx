@@ -2,7 +2,8 @@
 
 import clsx from "clsx"
 import { QuestionCard, useQuestionCards } from "@entities/question"
-import { Button, Progress } from "@radix-ui/themes"
+import { Button } from "@shared/ui/button"
+import { Progress } from "@shared/ui/progress"
 import cl from "./questions.module.scss"
 import { ShuffleIcon, LucideRotateCcw } from "lucide-react"
 

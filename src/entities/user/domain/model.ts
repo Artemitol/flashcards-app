@@ -11,4 +11,5 @@ export type UserModel = {
 export type SessionPayload = {
     userId: UserId
     username: UserModel["username"]
+    email: UserModel["email"]
 }

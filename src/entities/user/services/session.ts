@@ -70,6 +70,7 @@ async function refreshSession() {
         await createSession({
             userId: payload?.value.userId,
             username: payload.value.username,
+            email: payload.value.email,
         })
     }
 }

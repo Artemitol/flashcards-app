@@ -1,38 +1,48 @@
 "use server"
 
 import { z } from "zod"
-import { FormState } from "../model/domain"
+import { SignUpFormState } from "../model/domain"
 import { sessionService, createUser } from "@entities/user/server"
-import { redirect } from "next/navigation"
 
 const formDataSchema = z.object({
-    login: z.string().min(3),
+    username: z.string().min(3),
+    email: z.preprocess(
+        (val) =>
+            typeof val === "string" && val.trim() !== "" ? val : undefined,
+        z.email().optional()
+    ),
     password: z.string().min(8, "at least 8 characters"),
 })
 
 export async function signUpAction(
-    prevState: FormState,
+    prevState: SignUpFormState,
     formData: FormData
-): Promise<FormState> {
+): Promise<SignUpFormState> {
     const objectFormData = Object.fromEntries(formData.entries())
     const parsedData = formDataSchema.safeParse(objectFormData)
+    console.log(objectFormData)
 
     // Validating form values
     if (!parsedData.success) {
-        const { login: loginError, password: passwordError } =
-            parsedData.error.flatten().fieldErrors
+        const {
+            username: loginError,
+            password: passwordError,
+            email: emailError,
+        } = parsedData.error.flatten().fieldErrors
 
         return {
             errors: {
-                login: loginError?.join(", "),
+                username: loginError?.join(", "),
+                email: emailError?.join(", "),
                 password: passwordError?.join(", "),
             },
+            message: "Please fill all data fields",
             formData,
         }
     }
 
     const newUser = await createUser({
-        username: parsedData.data.login,
+        username: parsedData.data.username,
         password: parsedData.data.password,
     })
 
@@ -40,10 +50,15 @@ export async function signUpAction(
         // Creating session for new user
         await sessionService.createSession({
             userId: newUser.value.id,
-            username: parsedData.data.login,
+            username: parsedData.data.username,
+            email: parsedData.data.email || null,
         })
 
-        redirect("/tasks")
+        return {
+            formData,
+            message: null,
+            errors: {},
+        }
     } else if (
         newUser.type === "left" &&
         newUser.error === "user-already-exists"
