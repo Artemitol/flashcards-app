@@ -1,5 +1,5 @@
 import { questionActions } from "@entities/question"
-import { Button } from "@radix-ui/themes"
+import { Button } from "@shared/ui/button"
 import { useCallback } from "react"
 import { useDispatch } from "react-redux"
 
