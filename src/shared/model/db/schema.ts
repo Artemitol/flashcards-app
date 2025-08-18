@@ -33,8 +33,8 @@ export const quizzes = pgTable("quiz", {
 export const questions = pgTable("question", {
     id: serial("id").primaryKey(),
 
-    question: varchar("question", { length: 100 }),
-    answer: varchar("answer", { length: 300 }),
+    question: varchar("question", { length: 100 }).notNull(),
+    answer: varchar("answer", { length: 300 }).notNull(),
     createdAt: timestamp("created_at").defaultNow().notNull(),
 
     creatorId: integer("creator_id").notNull(),
@@ -43,7 +43,7 @@ export const questions = pgTable("question", {
 export const tags = pgTable("tag", {
     id: serial("id").primaryKey(),
 
-    name: text("name"),
+    name: varchar({ length: 30 }).notNull(),
     createdAt: timestamp("created_at").defaultNow().notNull(),
 })
 
@@ -61,8 +61,8 @@ export const quizQuestions = pgTable(
 export const questionTags = pgTable(
     "question_tag",
     {
-        questionId: integer("question_id"),
-        tagId: integer("tag_id"),
+        questionId: integer("question_id").notNull(),
+        tagId: integer("tag_id").notNull(),
     },
     (t) => [primaryKey({ columns: [t.questionId, t.tagId] })]
 )

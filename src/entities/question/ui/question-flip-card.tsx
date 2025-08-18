@@ -1,14 +1,14 @@
-import cl from "./question-card.module.scss"
 import clsx from "clsx"
 import { useEffect, useState } from "react"
 import { ChevronDownIcon, ChevronUpIcon } from "lucide-react"
-import { QuestionModel } from "../model/domain"
+import { QuestionModel } from "../model/domain/question"
+import cl from "./question.module.scss"
 
 type QuestionCardProps = {
     card: QuestionModel | null | undefined
 }
 
-export function QuestionCard({ card }: QuestionCardProps) {
+export function QuestionFlipCard({ card }: QuestionCardProps) {
     const [isAnswerRevealed, setIsAnswerRevealed] = useState<boolean>(false)
 
     useEffect(() => {
@@ -20,7 +20,7 @@ export function QuestionCard({ card }: QuestionCardProps) {
     }
 
     if (!card) {
-        return <div>Нет данных по вопросу(</div>
+        return <div>Unknown question. Data wasn`t provided</div>
     }
 
     return (
@@ -35,7 +35,7 @@ export function QuestionCard({ card }: QuestionCardProps) {
                             cl.card__title_small
                         )}
                     >
-                        Тема: {card.group.name}
+                        Тема: {card.tags.toString()}
                     </h4>
                 </div>
                 <div className={cl.card__number}>
@@ -44,7 +44,7 @@ export function QuestionCard({ card }: QuestionCardProps) {
             </div>
             {isAnswerRevealed && (
                 <div className={cl.card__answer}>
-                    <p>{card.answer}</p>
+                    <p>{card.answer || "Answer wasn`t provided"}</p>
                 </div>
             )}
             <button type='button' onClick={clickHandler}>

@@ -1,8 +1,8 @@
 import { createSelector, createSlice } from "@reduxjs/toolkit"
-import { QuestionModel } from "./domain"
+import { QuestionModel } from "./domain/question"
 import { shuffleArray } from "@shared/lib/shuffle"
 import { appReducer } from "@shared/model/store"
-import { QuestionCardsConfig } from "../config/questions-config"
+// import { QuestionCardsConfig } from "../config/questions-config"
 
 type State = {
     sourceOfTruth: QuestionModel[]
@@ -13,11 +13,11 @@ type State = {
 }
 
 const initialState: State = {
-    sourceOfTruth: [...QuestionCardsConfig],
-    cards: [...QuestionCardsConfig],
+    sourceOfTruth: [],
+    cards: [],
     isShuffled: false,
-    currentCardIndex: 0,
-    currentCard: QuestionCardsConfig[0],
+    currentCardIndex: null,
+    currentCard: null,
 }
 
 export const questionsSlice = createSlice({
