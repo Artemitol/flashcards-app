@@ -1,5 +1,5 @@
 import { InferInsertModel, InferSelectModel } from "drizzle-orm"
-import { dbClient } from "@shared/model/db/connection"
+import { dbClient, tags } from "@shared/model/db/server"
 import { questions } from "@shared/model/db/schema"
 
 export type QuestionDB = InferSelectModel<typeof questions>
@@ -25,3 +25,6 @@ const questionWithRelationsEjector = async () => {
 export type QuestionWithRelationsDB = NonNullable<
     Awaited<ReturnType<typeof questionWithRelationsEjector>>
 >
+
+export type TagDB = InferSelectModel<typeof tags>
+export type TagInsertDB = InferInsertModel<typeof tags>

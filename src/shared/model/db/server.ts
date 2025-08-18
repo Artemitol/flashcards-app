@@ -1,2 +1,9 @@
 export { dbClient } from "./connection"
-export { questions, users } from "./schema"
+export {
+    questions,
+    users,
+    questionTags,
+    quizQuestions,
+    quizzes,
+    tags,
+} from "./schema"

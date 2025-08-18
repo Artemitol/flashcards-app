@@ -2,7 +2,7 @@ import clsx from "clsx"
 import { useEffect, useState } from "react"
 import { ChevronDownIcon, ChevronUpIcon } from "lucide-react"
 import { QuestionModel } from "../model/domain/question"
-import cl from "./question.module.scss"
+import cl from "./question-flip-card.module.scss"
 
 type QuestionCardProps = {
     card: QuestionModel | null | undefined
