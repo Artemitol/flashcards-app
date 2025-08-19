@@ -7,7 +7,7 @@ export type QuestionBaseModel = {
     id: QuestionId
     question: string
     answer: string
-    createdAt: Date
+    createdAt: string
 }
 
 export type QuestionModel = QuestionBaseModel & {
@@ -27,7 +27,7 @@ export const fromQuestionDBtoQuestionModel: Adapter<
     id: raw.id,
     answer: raw.answer,
     question: raw.question,
-    createdAt: raw.createdAt,
+    createdAt: raw.createdAt.toISOString(),
 })
 
 export const fromQuestionWithRelationsDBtoQuestionModel: Adapter<
@@ -45,5 +45,5 @@ export const fromQuestionWithRelationsDBtoQuestionModel: Adapter<
         id: tag.id,
         name: tag.name,
     })),
-    createdAt: raw.createdAt,
+    createdAt: raw.createdAt.toISOString(),
 })

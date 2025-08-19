@@ -1,5 +1,5 @@
-import { QuestionsPage } from "@/pages-layer/questions"
+import { QuizzesPage } from "@pages/quizzes"
 
-export default function QuestionsNextPage() {
-    return <QuestionsPage />
+export default function QuizzesNextPage() {
+    return <QuizzesPage />
 }
