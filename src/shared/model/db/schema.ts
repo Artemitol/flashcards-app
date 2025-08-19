@@ -1,7 +1,6 @@
 import {
     pgTable,
     serial,
-    varchar,
     text,
     integer,
     timestamp,
@@ -11,7 +10,7 @@ import { relations } from "drizzle-orm"
 
 export const users = pgTable("user", {
     id: serial("id").primaryKey(),
-    username: varchar("username", { length: 20 }).unique().notNull(),
+    username: text("username").unique().notNull(),
 
     email: text("email").unique(),
     password: text("password").notNull(),
@@ -23,7 +22,7 @@ export const users = pgTable("user", {
 export const quizzes = pgTable("quiz", {
     id: serial("id").primaryKey(),
 
-    title: varchar("title", { length: 200 }),
+    title: text("title"),
     description: text("description"),
     createdAt: timestamp("created_at").defaultNow().notNull(),
 
@@ -33,8 +32,8 @@ export const quizzes = pgTable("quiz", {
 export const questions = pgTable("question", {
     id: serial("id").primaryKey(),
 
-    question: varchar("question", { length: 100 }).notNull(),
-    answer: varchar("answer", { length: 300 }).notNull(),
+    question: text("question").notNull(),
+    answer: text("answer").notNull(),
     createdAt: timestamp("created_at").defaultNow().notNull(),
 
     creatorId: integer("creator_id").notNull(),
@@ -43,7 +42,7 @@ export const questions = pgTable("question", {
 export const tags = pgTable("tag", {
     id: serial("id").primaryKey(),
 
-    name: varchar({ length: 30 }).notNull(),
+    name: text("name").notNull(),
     createdAt: timestamp("created_at").defaultNow().notNull(),
 })
 
@@ -51,8 +50,8 @@ export const tags = pgTable("tag", {
 export const quizQuestions = pgTable(
     "quiz_question",
     {
-        quizId: integer("quiz_id"),
-        questionId: integer("question_id"),
+        quizId: integer("quiz_id").notNull(),
+        questionId: integer("question_id").notNull(),
     },
     (t) => [primaryKey({ columns: [t.questionId, t.quizId] })]
 )
