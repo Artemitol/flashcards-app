@@ -54,7 +54,7 @@ export function AppLayout({ children }: PropsWithChildren) {
                         </Breadcrumb>
                     </div>
                 </header>
-                {children}
+                <div className='px-4'>{children}</div>
             </SidebarInset>
         </SidebarProvider>
     )

@@ -1,6 +1,6 @@
-export { QuestionCard } from "./ui/question-card"
+export { QuestionFlipCard } from "./ui/question-flip-card"
 
-export type { QuestionId, QuestionsGroup, QuestionModel } from "./model/domain"
+export type { QuestionModel } from "./model/domain/question"
 export {
     questionActions,
     questionSelectors,
@@ -8,5 +8,3 @@ export {
 } from "./model/questions.slice"
 
 export { useQuestionCards } from "./lib/use-question-cards"
-
-export { QuestionCardsConfig } from "./config/questions-config"

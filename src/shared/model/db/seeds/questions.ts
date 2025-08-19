@@ -1,6 +1,31 @@
-import type { QuestionModel } from "../model/domain"
+import { PgTransaction } from "drizzle-orm/pg-core"
+import { questions } from "../schema"
+import { NodePgQueryResultHKT } from "drizzle-orm/node-postgres"
+import * as schema from "../schema"
+import { ExtractTablesWithRelations } from "drizzle-orm"
 
-export const QuestionCardsConfig: QuestionModel[] = [
+export async function seedQuestions(
+    tx: PgTransaction<
+        NodePgQueryResultHKT,
+        typeof schema,
+        ExtractTablesWithRelations<typeof schema>
+    >
+) {
+    const data = await tx
+        .insert(questions)
+        .values(
+            QuestionCardsConfig.map((q) => ({
+                question: q.question,
+                answer: q.answer ?? "",
+                creatorId: 1,
+            }))
+        )
+        .returning()
+
+    return data
+}
+
+export const QuestionCardsConfig = [
     // HTML
     {
         id: 1,

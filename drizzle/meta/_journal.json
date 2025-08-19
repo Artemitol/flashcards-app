@@ -15,6 +15,13 @@
       "when": 1755089693341,
       "tag": "0001_low_phalanx",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1755590854826,
+      "tag": "0002_handy_goliath",
+      "breakpoints": true
     }
   ]
 }

@@ -1,7 +1,7 @@
 "use client"
 
 import clsx from "clsx"
-import { QuestionCard, useQuestionCards } from "@entities/question"
+import { QuestionFlipCard, useQuestionCards } from "@entities/question"
 import { Button } from "@shared/ui/button"
 import { Progress } from "@shared/ui/progress"
 import cl from "./questions.module.scss"
@@ -32,7 +32,7 @@ export function QuestionsPage() {
                 />
             </div>
             <div className={cl.cardsPage__cardWrapper}>
-                <QuestionCard card={data.currentCard} />
+                <QuestionFlipCard card={data.currentCard} />
             </div>
             <div className={cl.cardsPage__actions}>
                 <Button

@@ -1,8 +1,7 @@
-import { createSelector, createSlice } from "@reduxjs/toolkit"
-import { QuestionModel } from "./domain"
+import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { QuestionModel } from "./domain/question"
 import { shuffleArray } from "@shared/lib/shuffle"
 import { appReducer } from "@shared/model/store"
-import { QuestionCardsConfig } from "../config/questions-config"
 
 type State = {
     sourceOfTruth: QuestionModel[]
@@ -10,14 +9,16 @@ type State = {
     isShuffled: boolean
     currentCardIndex: number | null
     currentCard: QuestionModel | null
+    isIdle: boolean
 }
 
 const initialState: State = {
-    sourceOfTruth: [...QuestionCardsConfig],
-    cards: [...QuestionCardsConfig],
+    sourceOfTruth: [],
+    cards: [],
     isShuffled: false,
-    currentCardIndex: 0,
-    currentCard: QuestionCardsConfig[0],
+    currentCardIndex: null,
+    currentCard: null,
+    isIdle: false,
 }
 
 export const questionsSlice = createSlice({
@@ -71,6 +72,19 @@ export const questionsSlice = createSlice({
             state.currentCard =
                 newIndex !== null ? state.sourceOfTruth[newIndex] : null
         },
+        firstFetch: (state) => {
+            state.isIdle = true
+        },
+        setQuestions: (state, action: PayloadAction<QuestionModel[]>) => {
+            const { payload } = action
+
+            state.isShuffled = false
+            state.sourceOfTruth = payload
+            state.cards = payload
+            state.currentCardIndex = action.payload.length === 0 ? null : 0
+            state.currentCard =
+                action.payload.length === 0 ? null : action.payload[0]
+        },
     },
     selectors: {
         all: (state) => state,
@@ -85,6 +99,8 @@ export const questionsSlice = createSlice({
                 }
             }
         ),
+        currentCard: (state) => state.currentCard,
+        isIdle: (state) => state.isIdle,
     },
 }).injectInto(appReducer)
 
