@@ -1,0 +1,12 @@
+.quizById {
+    display: flex;
+    flex-direction: column;
+
+    &__title {
+        margin-bottom: 0.75rem;
+    }
+
+    &__subTitle {
+        margin-bottom: 0.5rem;
+    }
+}
