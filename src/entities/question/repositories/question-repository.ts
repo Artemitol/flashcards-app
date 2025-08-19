@@ -1,14 +1,16 @@
 import "server-only"
 
-import { SQL } from "drizzle-orm"
+import { getTableColumns, SQL } from "drizzle-orm"
 import {
     fromQuestionDBtoQuestionModel,
     fromQuestionWithRelationsDBtoQuestionModel,
 } from "../model/domain/question"
 import { questions } from "@shared/model/db/schema"
-import { dbClient } from "@shared/model/db/connection"
+import { dbClient } from "@shared/model/db/server"
 import { QuestionInsertDB } from "../model/server"
 import { left, right } from "@shared/lib/either"
+
+const columns = getTableColumns(questions)
 
 const getQuestions = async (where?: SQL) => {
     const data = await dbClient.query.questions.findMany({
@@ -77,4 +79,5 @@ export const questionRepository = {
     getAll: getQuestions,
     getOne: getOneQuestion,
     insertOne: createQuestion,
+    columns,
 }
