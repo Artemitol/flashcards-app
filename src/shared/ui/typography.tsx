@@ -1,5 +1,5 @@
 import * as React from "react"
-import { cn } from "@/lib/utils"
+import { cn } from "../lib/shadcn/utils"
 
 const typographyVariants = {
     h1: "scroll-m-20 text-4xl font-bold tracking-tight lg:text-5xl",
