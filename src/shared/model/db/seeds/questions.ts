@@ -1,17 +1,8 @@
-import { PgTransaction } from "drizzle-orm/pg-core"
+import { dbClient } from "../connection"
 import { questions } from "../schema"
-import { NodePgQueryResultHKT } from "drizzle-orm/node-postgres"
-import * as schema from "../schema"
-import { ExtractTablesWithRelations } from "drizzle-orm"
 
-export async function seedQuestions(
-    tx: PgTransaction<
-        NodePgQueryResultHKT,
-        typeof schema,
-        ExtractTablesWithRelations<typeof schema>
-    >
-) {
-    const data = await tx
+export async function seedQuestions() {
+    const data = await dbClient
         .insert(questions)
         .values(
             QuestionCardsConfig.map((q) => ({

@@ -1,17 +1,8 @@
-import { NodePgQueryResultHKT } from "drizzle-orm/node-postgres"
+import { dbClient } from "../connection"
 import { quizQuestions, quizzes } from "../schema"
-import { PgTransaction } from "drizzle-orm/pg-core"
-import * as schema from "../schema"
-import { ExtractTablesWithRelations } from "drizzle-orm"
 
-export const seedQuiz = async (
-    tx: PgTransaction<
-        NodePgQueryResultHKT,
-        typeof schema,
-        ExtractTablesWithRelations<typeof schema>
-    >
-) => {
-    const [quiz] = await tx
+export const seedQuiz = async () => {
+    const [quiz] = await dbClient
         .insert(quizzes)
         .values({
             title: "Mock frontend",
@@ -20,7 +11,7 @@ export const seedQuiz = async (
         })
         .returning()
 
-    await tx.insert(quizQuestions).values(
+    await dbClient.insert(quizQuestions).values(
         Array.from({ length: 51 }, (_, index) => ({
             quizId: quiz.id,
             questionId: index + 1,

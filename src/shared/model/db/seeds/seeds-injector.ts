@@ -1,14 +1,11 @@
-import { dbClient } from "../connection"
 import { seedQuestions } from "./questions"
 import { seedQuiz } from "./quizzes"
 import { seedUsers } from "./users"
 
 async function main() {
-    await dbClient.transaction(async (tx) => {
-        await seedUsers(tx)
-        await seedQuestions(tx)
-        await seedQuiz(tx)
-    })
+    await seedUsers()
+    await seedQuestions()
+    await seedQuiz()
 
     console.log("✅ Сиды загружены")
     process.exit(0)
