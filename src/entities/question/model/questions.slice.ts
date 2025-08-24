@@ -101,6 +101,7 @@ export const questionsSlice = createSlice({
         ),
         currentCard: (state) => state.currentCard,
         isIdle: (state) => state.isIdle,
+        isShuffled: (state) => state.isShuffled,
     },
 }).injectInto(appReducer)
 

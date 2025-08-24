@@ -6,6 +6,7 @@ import { Spinner } from "@shared/ui/spinner"
 import { Typography } from "@shared/ui/typography"
 import { Suspense } from "react"
 import cl from "./quiz-page.module.scss"
+import { QuizActions } from "@widgets/quiz-actions"
 
 export function QuizPage({ params }: { params: QuizByIdParams }) {
     return (
@@ -14,7 +15,7 @@ export function QuizPage({ params }: { params: QuizByIdParams }) {
                 Quiz details page
             </Typography>
             <Suspense fallback={<Spinner />}>
-                <QuizByIdServer params={params} />
+                <QuizByIdServer params={params} actionsSlot={<QuizActions />} />
             </Suspense>
         </>
     )
