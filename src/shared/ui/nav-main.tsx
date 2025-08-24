@@ -1,7 +1,6 @@
 "use client"
 
 import { ChevronRight } from "lucide-react"
-
 import {
     Collapsible,
     CollapsibleContent,
@@ -19,6 +18,7 @@ import {
     SidebarMenuSubItem,
 } from "@shared/ui/sidebar"
 import Link from "next/link"
+import { usePathname, useRouter } from "next/navigation"
 
 export type NavLink = {
     title: string
@@ -32,6 +32,8 @@ export type NavLink = {
 }
 
 export function NavMain({ items }: { items: NavLink[] }) {
+    const pathname = usePathname()
+
     return (
         <SidebarGroup>
             <SidebarGroupLabel>Platform</SidebarGroupLabel>
@@ -43,11 +45,15 @@ export function NavMain({ items }: { items: NavLink[] }) {
                         defaultOpen={item.isActive}
                     >
                         <SidebarMenuItem>
-                            <SidebarMenuButton asChild tooltip={item.title}>
-                                <a href={item.url}>
+                            <SidebarMenuButton
+                                asChild
+                                tooltip={item.title}
+                                isActive={pathname.includes(item.url)}
+                            >
+                                <Link href={item.url}>
                                     {item.icon}
                                     <span>{item.title}</span>
-                                </a>
+                                </Link>
                             </SidebarMenuButton>
                             {item.items?.length ? (
                                 <>
