@@ -1,6 +1,6 @@
 import { combineSlices, configureStore } from "@reduxjs/toolkit"
 
-export const appReducer = combineSlices({})
+export const appReducer = combineSlices()
 
 export const makeStore = (preloadedState?: PreloadDataState) =>
     configureStore({
@@ -11,6 +11,6 @@ export const makeStore = (preloadedState?: PreloadDataState) =>
 // Infer the type of makeStore
 export type AppStore = ReturnType<typeof makeStore>
 // Infer the `RootState` and `AppDispatch` types from the store itself
-type RootState = ReturnType<typeof appReducer>
+export type RootState = ReturnType<typeof appReducer>
 export type AppDispatch = AppStore["dispatch"]
 export type PreloadDataState = Partial<RootState>
