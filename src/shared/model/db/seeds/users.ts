@@ -1,17 +1,8 @@
-import { NodePgQueryResultHKT } from "drizzle-orm/node-postgres"
-import { PgTransaction } from "drizzle-orm/pg-core"
 import { users } from "../schema"
-import * as schema from "../schema"
-import { ExtractTablesWithRelations } from "drizzle-orm"
+import { dbClient } from "../connection"
 
-export async function seedUsers(
-    tx: PgTransaction<
-        NodePgQueryResultHKT,
-        typeof schema,
-        ExtractTablesWithRelations<typeof schema>
-    >
-) {
-    const data = await tx
+export async function seedUsers() {
+    const data = await dbClient
         .insert(users)
         .values([
             {
