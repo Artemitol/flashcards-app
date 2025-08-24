@@ -18,6 +18,7 @@ import {
     SidebarMenuSubButton,
     SidebarMenuSubItem,
 } from "@shared/ui/sidebar"
+import Link from "next/link"
 
 export type NavLink = {
     title: string
@@ -67,11 +68,13 @@ export function NavMain({ items }: { items: NavLink[] }) {
                                                     <SidebarMenuSubButton
                                                         asChild
                                                     >
-                                                        <a href={subItem.url}>
+                                                        <Link
+                                                            href={subItem.url}
+                                                        >
                                                             <span>
                                                                 {subItem.title}
                                                             </span>
-                                                        </a>
+                                                        </Link>
                                                     </SidebarMenuSubButton>
                                                 </SidebarMenuSubItem>
                                             ))}

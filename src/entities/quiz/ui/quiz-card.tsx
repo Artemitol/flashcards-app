@@ -5,7 +5,7 @@ import { QuizModel } from "../model/domain"
 import cl from "./quiz-card.module.scss"
 import { Card, CardFooter, CardHeader, CardTitle } from "@shared/ui/card"
 import { useCallback } from "react"
-import { redirect } from "next/navigation"
+import { useRouter } from "next/navigation"
 
 type QuizCardProps = {
     quiz: QuizModel
@@ -15,9 +15,11 @@ type QuizCardProps = {
 export function QuizCard(props: QuizCardProps) {
     const { quiz, isLoading = false } = props
 
+    const router = useRouter()
+
     const clickHandler = useCallback(() => {
-        redirect(`/quizzes/${quiz.id}`)
-    }, [quiz.id])
+        router.push(`/quizzes/${quiz.id}`)
+    }, [quiz.id, router])
 
     if (isLoading) {
         return <Skeleton />
