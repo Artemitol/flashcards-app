@@ -15,8 +15,8 @@ export const NavBarConfig: NavLink[] = [
         isActive: true,
     },
     {
-        title: "Your workspace",
-        url: "/workspace",
+        title: "Your questions",
+        url: "/my-questions",
         icon: <Star />,
     },
     {

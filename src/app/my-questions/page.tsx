@@ -1,5 +1,5 @@
-import { InDevelopPage } from "@pages/in-develop"
+import { UserQuestionsPage } from "@pages/user-questions"
 
-export default function MyQuestionsPage() {
-    return <InDevelopPage />
+export default function MyQuestionsNextPage() {
+    return <UserQuestionsPage />
 }
