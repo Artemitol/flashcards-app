@@ -68,6 +68,12 @@ export async function signUpAction(
             message: "User already exists, try to login",
             errors: {},
         }
+    } else if (newUser.type === "left") {
+        return {
+            formData,
+            message: newUser.error.message,
+            errors: {},
+        }
     }
 
     return {
