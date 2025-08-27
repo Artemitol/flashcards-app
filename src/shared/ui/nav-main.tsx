@@ -18,7 +18,7 @@ import {
     SidebarMenuSubItem,
 } from "@shared/ui/sidebar"
 import Link from "next/link"
-import { usePathname, useRouter } from "next/navigation"
+import { usePathname } from "next/navigation"
 
 export type NavLink = {
     title: string
@@ -29,68 +29,83 @@ export type NavLink = {
         title: string
         url: string
     }[]
+    isProtected?: boolean
 }
 
-export function NavMain({ items }: { items: NavLink[] }) {
+type NavMain = { items: NavLink[]; isVerified?: boolean }
+
+export function NavMain(props: NavMain) {
+    const { items, isVerified } = props
+
     const pathname = usePathname()
 
     return (
         <SidebarGroup>
             <SidebarGroupLabel>Platform</SidebarGroupLabel>
             <SidebarMenu>
-                {items.map((item) => (
-                    <Collapsible
-                        key={item.title}
-                        asChild
-                        defaultOpen={item.isActive}
-                    >
-                        <SidebarMenuItem>
-                            <SidebarMenuButton
-                                asChild
-                                tooltip={item.title}
-                                isActive={pathname.includes(item.url)}
-                            >
-                                <Link href={item.url}>
-                                    {item.icon}
-                                    <span>{item.title}</span>
-                                </Link>
-                            </SidebarMenuButton>
-                            {item.items?.length ? (
-                                <>
-                                    <CollapsibleTrigger asChild>
-                                        <SidebarMenuAction className='data-[state=open]:rotate-90'>
-                                            <ChevronRight />
-                                            <span className='sr-only'>
-                                                Toggle
-                                            </span>
-                                        </SidebarMenuAction>
-                                    </CollapsibleTrigger>
-                                    <CollapsibleContent>
-                                        <SidebarMenuSub>
-                                            {item.items?.map((subItem) => (
-                                                <SidebarMenuSubItem
-                                                    key={subItem.title}
-                                                >
-                                                    <SidebarMenuSubButton
-                                                        asChild
+                {items.map((item) => {
+                    if (item.isProtected && !isVerified) {
+                        return null
+                    }
+
+                    return (
+                        <Collapsible
+                            key={item.title}
+                            asChild
+                            defaultOpen={item.isActive}
+                        >
+                            <SidebarMenuItem>
+                                <SidebarMenuButton
+                                    asChild
+                                    tooltip={item.title}
+                                    isActive={pathname.includes(item.url)}
+                                >
+                                    <Link href={item.url}>
+                                        {item.icon}
+                                        <span>{item.title}</span>
+                                    </Link>
+                                </SidebarMenuButton>
+                                {item.items?.length ? (
+                                    <>
+                                        <CollapsibleTrigger asChild>
+                                            <SidebarMenuAction className='data-[state=open]:rotate-90'>
+                                                <ChevronRight />
+                                                <span className='sr-only'>
+                                                    Toggle
+                                                </span>
+                                            </SidebarMenuAction>
+                                        </CollapsibleTrigger>
+                                        <CollapsibleContent>
+                                            <SidebarMenuSub>
+                                                {item.items?.map((subItem) => (
+                                                    <SidebarMenuSubItem
+                                                        key={subItem.title}
                                                     >
-                                                        <Link
-                                                            href={subItem.url}
+                                                        <SidebarMenuSubButton
+                                                            asChild
                                                         >
-                                                            <span>
-                                                                {subItem.title}
-                                                            </span>
-                                                        </Link>
-                                                    </SidebarMenuSubButton>
-                                                </SidebarMenuSubItem>
-                                            ))}
-                                        </SidebarMenuSub>
-                                    </CollapsibleContent>
-                                </>
-                            ) : null}
-                        </SidebarMenuItem>
-                    </Collapsible>
-                ))}
+                                                            <Link
+                                                                href={
+                                                                    subItem.url
+                                                                }
+                                                            >
+                                                                <span>
+                                                                    {
+                                                                        subItem.title
+                                                                    }
+                                                                </span>
+                                                            </Link>
+                                                        </SidebarMenuSubButton>
+                                                    </SidebarMenuSubItem>
+                                                ))}
+                                            </SidebarMenuSub>
+                                        </CollapsibleContent>
+                                    </>
+                                ) : null}
+                            </SidebarMenuItem>
+                        </Collapsible>
+                    )
+                })}
             </SidebarMenu>
         </SidebarGroup>
     )

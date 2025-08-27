@@ -22,7 +22,13 @@ const columns = [
     columnHelper.accessor("id", {
         cell: (info) => info.getValue(),
     }),
-    columnHelper.accessor("creator.username", {
+    columnHelper.accessor("question", {
+        cell: (info) => info.getValue(),
+    }),
+    columnHelper.accessor("createdAt", {
+        cell: (info) => new Date(info.getValue()).toLocaleString(),
+    }),
+    columnHelper.accessor("answer", {
         cell: (info) => info.getValue(),
     }),
 ]

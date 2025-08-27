@@ -18,15 +18,18 @@ export const NavBarConfig: NavLink[] = [
         title: "Your questions",
         url: "/my-questions",
         icon: <Star />,
+        isProtected: true,
     },
     {
         title: "Profile",
         url: "/profile",
         icon: <User />,
+        isProtected: true,
     },
     {
         title: "Settings",
         url: "/settings",
         icon: <Settings2 />,
+        isProtected: true,
     },
 ]
