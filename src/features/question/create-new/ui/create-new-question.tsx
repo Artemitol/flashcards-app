@@ -1,6 +1,6 @@
 "use client"
 
-import { useActionState, useEffect, useId } from "react"
+import { useActionState, useEffect, useId, useState } from "react"
 import { Button } from "@shared/ui/button"
 import {
     Dialog,
@@ -43,19 +43,24 @@ export function CreateNewQuestion(props: CreateNewQuestionProps) {
         errors: {},
         formData: null,
         message: null,
-        toast: null,
+        isSuccess: null,
     })
     const questionId = useId()
     const answerId = useId()
+    const [isModalOpen, setIsModalOpen] = useState(false)
 
     useEffect(() => {
-        if (state.toast) {
-            toast(state.toast)
+        if (state.isSuccess) {
+            toast("Successfully created new question")
+            setIsModalOpen(false)
         }
-    }, [state.toast])
+    }, [state.isSuccess])
 
     return (
-        <Dialog>
+        <Dialog
+            open={isModalOpen}
+            onOpenChange={(isOpen) => setIsModalOpen(isOpen)}
+        >
             <DialogTrigger asChild disabled={isPending}>
                 {trigger || (
                     <Button>

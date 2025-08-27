@@ -4,13 +4,14 @@ import { FormState } from "@shared/model/server-actions"
 import z from "zod"
 import { getUserService, sessionService } from "@entities/user/server"
 import { questionRepository } from "@entities/question/repositories/question-repository"
-import { toast } from "sonner"
+import { revalidateTag } from "next/cache"
+import { QuestionCaching } from "@entities/question/server"
 
 type ActionState = FormState<{
     question?: string[]
     answer?: string[]
 }> & {
-    toast: string | null
+    isSuccess: boolean | null
 }
 
 const createNewQuestionSchema = z.object({
@@ -33,7 +34,7 @@ export async function createNewQuestionAction(
             errors: {
                 ...fieldErrors,
             },
-            toast: null,
+            isSuccess: false,
             message: "Check inserted data and try again",
         }
     }
@@ -47,7 +48,7 @@ export async function createNewQuestionAction(
             errors: {},
             formData,
             message: "Cant create question because you aren`t authorized",
-            toast: null,
+            isSuccess: false,
         }
     }
     const user = await getUserService.byId(session.value.userId)
@@ -58,7 +59,7 @@ export async function createNewQuestionAction(
             errors: {},
             message:
                 "Cant found data about you. You should logout, login and try again",
-            toast: null,
+            isSuccess: false,
         }
     }
 
@@ -72,15 +73,17 @@ export async function createNewQuestionAction(
             formData,
             errors: {},
             message: "Something went wrong, try again later",
-            toast: null,
+            isSuccess: false,
         }
     }
 
     if (req.type === "right") {
+        revalidateTag(QuestionCaching.baseKey)
+
         return {
-            toast: "Successfully created new question",
+            isSuccess: true,
             errors: {},
-            formData,
+            formData: new FormData(),
             message: null,
         }
     }
@@ -89,6 +92,6 @@ export async function createNewQuestionAction(
         errors: prevState.errors,
         formData,
         message: prevState.message,
-        toast: null,
+        isSuccess: null,
     }
 }

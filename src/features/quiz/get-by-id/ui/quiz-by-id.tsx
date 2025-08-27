@@ -1,6 +1,6 @@
 "use client"
 
-import { QuestionFlipCard, QuestionModel } from "@entities/question"
+import { type QuestionModel, QuestionFlipCard } from "@entities/question"
 import { useQuiz } from "../lib/use-quiz"
 import { QuizId } from "@kernel/ids"
 

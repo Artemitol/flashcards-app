@@ -1,4 +1,5 @@
 import { CreateNewQuestion } from "@features/question/create-new"
+import { QuestionsTableWidget } from "@widgets/questions-table"
 import { Typography } from "@shared/ui/typography"
 
 export function UserQuestionsPage() {
@@ -8,6 +9,7 @@ export function UserQuestionsPage() {
                 Questions that was created by you
             </Typography>
             <CreateNewQuestion />
+            <QuestionsTableWidget />
         </>
     )
 }
