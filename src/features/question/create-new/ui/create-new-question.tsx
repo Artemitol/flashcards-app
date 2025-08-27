@@ -1,6 +1,6 @@
 "use client"
 
-import { useActionState, useId } from "react"
+import { useActionState, useEffect, useId } from "react"
 import { Button } from "@shared/ui/button"
 import {
     Dialog,
@@ -17,6 +17,7 @@ import { Label } from "@shared/ui/label"
 import { createNewQuestionAction } from "../actions/create-new-question"
 import clsx from "clsx"
 import { Plus } from "lucide-react"
+import { toast } from "sonner"
 
 type CreateNewQuestionProps = React.PropsWithChildren & {
     trigger?: React.ReactNode
@@ -42,9 +43,16 @@ export function CreateNewQuestion(props: CreateNewQuestionProps) {
         errors: {},
         formData: null,
         message: null,
+        toast: null,
     })
     const questionId = useId()
     const answerId = useId()
+
+    useEffect(() => {
+        if (state.toast) {
+            toast(state.toast)
+        }
+    }, [state.toast])
 
     return (
         <Dialog>

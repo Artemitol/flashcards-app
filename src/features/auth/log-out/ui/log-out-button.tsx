@@ -3,7 +3,7 @@ import { useActionState } from "react"
 import { logOutAction } from "../actions/log-out"
 
 export function LogOutButton() {
-    const [_, action, isPending] = useActionState(logOutAction, {})
+    const [_, action, isPending] = useActionState(logOutAction, new FormData())
 
     return (
         <form action={action} className='contents'>

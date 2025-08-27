@@ -9,7 +9,9 @@ import { toast } from "sonner"
 type ActionState = FormState<{
     question?: string[]
     answer?: string[]
-}>
+}> & {
+    toast: string | null
+}
 
 const createNewQuestionSchema = z.object({
     question: z.string().max(200),
@@ -31,6 +33,7 @@ export async function createNewQuestionAction(
             errors: {
                 ...fieldErrors,
             },
+            toast: null,
             message: "Check inserted data and try again",
         }
     }
@@ -44,6 +47,7 @@ export async function createNewQuestionAction(
             errors: {},
             formData,
             message: "Cant create question because you aren`t authorized",
+            toast: null,
         }
     }
     const user = await getUserService.byId(session.value.userId)
@@ -54,6 +58,7 @@ export async function createNewQuestionAction(
             errors: {},
             message:
                 "Cant found data about you. You should logout, login and try again",
+            toast: null,
         }
     }
 
@@ -67,16 +72,23 @@ export async function createNewQuestionAction(
             formData,
             errors: {},
             message: "Something went wrong, try again later",
+            toast: null,
         }
     }
 
     if (req.type === "right") {
-        toast("Successfully created question")
+        return {
+            toast: "Successfully created new question",
+            errors: {},
+            formData,
+            message: null,
+        }
     }
 
     return {
         errors: prevState.errors,
         formData,
         message: prevState.message,
+        toast: null,
     }
 }
