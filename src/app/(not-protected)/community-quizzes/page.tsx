@@ -1,5 +1,5 @@
-import { InDevelopPage } from "@pages/in-develop"
+import { CommunityQuizzes } from "@pages/community-quizzes"
 
 export default function CommunityQuizzesNextPage() {
-    return <InDevelopPage />
+    return <CommunityQuizzes />
 }

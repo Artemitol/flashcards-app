@@ -3,3 +3,4 @@ export type { QuizModel } from "./model/domain"
 export { quizSliceActions, quizSliceSelectors } from "./model/quiz.slice"
 
 export { QuizCard } from "./ui/quiz-card"
+export { QuizCardsList } from "./ui/quiz-cards-list/quiz-cards-list"

@@ -1,12 +1,11 @@
-import { QuizCard, QuizModel } from "@entities/quiz"
-import cl from "./quizzes-list.module.scss"
+import { QuizModel, QuizCardsList } from "@entities/quiz"
 
-export function QuizzesList({ quizzes }: { quizzes: QuizModel[] }) {
-    return (
-        <div className={cl.quizzesList}>
-            {quizzes.map((el) => (
-                <QuizCard key={el.id} quiz={el} />
-            ))}
-        </div>
-    )
+type QuizzesListProps = {
+    quizzes: QuizModel[]
+}
+
+export function QuizzesList(props: QuizzesListProps) {
+    const { quizzes } = props
+
+    return <QuizCardsList quizzes={quizzes} />
 }
