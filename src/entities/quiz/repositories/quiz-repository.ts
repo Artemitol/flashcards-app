@@ -2,6 +2,7 @@ import { dbClient, quizzes } from "@shared/model/db/server"
 import { getTableColumns, SQL } from "drizzle-orm"
 import { fromQuizWithRelationsDBtoQuizModel } from "../model/domain"
 import { left, right } from "@shared/lib/either"
+import { QuizInsertDB } from "../model/server"
 
 const columns = getTableColumns(quizzes)
 
@@ -34,6 +35,22 @@ const getAll = async (where?: SQL) => {
     } catch (err) {
         return left({
             message: "cant-get-quizzes",
+            err,
+        })
+    }
+}
+
+const insertOne = async (quizToInsert: QuizInsertDB) => {
+    try {
+        const [req] = await dbClient
+            .insert(quizzes)
+            .values(quizToInsert)
+            .returning()
+
+        return right(req)
+    } catch (err) {
+        return left({
+            message: "cant-insert-quiz-now",
             err,
         })
     }
@@ -83,5 +100,6 @@ const getOne = async (where?: SQL) => {
 export const quizRepository = {
     getMany: getAll,
     getOne,
+    insertOne,
     columns,
 }

@@ -10,4 +10,9 @@ export const QuestionCaching = {
     // ById
     byIdCacher: ["question", "byId"],
     byIdAccessor: (id: QuestionId) => `question:byId:${id}`,
+
+    // Validate list
+    validateListCacher: ["question", "validate", "list"],
+    validateListAccessor: (ids: QuestionId[]) =>
+        `question:validate:list:${ids.join(".")}`,
 }
