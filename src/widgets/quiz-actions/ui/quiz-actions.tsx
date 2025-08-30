@@ -1,9 +1,9 @@
 "use client"
 
-import { ResetQuiz } from "@features/quiz/reset"
-import { ShowNextQuestionInQuiz } from "@features/quiz/show-next"
-import { ShowPreviousQuestionInQuiz } from "@features/quiz/show-previous"
-import { ShuffleQuiz } from "@features/quiz/shuffle"
+import { ResetQuiz } from "@features/quiz/reset-questions"
+import { ShowNextQuestionInQuiz } from "@features/quiz/show-next-question"
+import { ShowPreviousQuestionInQuiz } from "@features/quiz/show-previous-question"
+import { ShuffleQuiz } from "@features/quiz/shuffle-questions"
 import cl from "./quiz-actions.module.scss"
 import { QuizId } from "@kernel/ids"
 
