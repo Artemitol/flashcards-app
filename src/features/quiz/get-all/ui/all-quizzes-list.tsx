@@ -4,7 +4,7 @@ type QuizzesListProps = {
     quizzes: QuizModel[]
 }
 
-export function QuizzesList(props: QuizzesListProps) {
+export function AllQuizzesList(props: QuizzesListProps) {
     const { quizzes } = props
 
     return <QuizCardsList quizzes={quizzes} />

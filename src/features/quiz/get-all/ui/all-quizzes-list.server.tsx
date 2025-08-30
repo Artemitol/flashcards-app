@@ -1,14 +1,14 @@
 import "server-only"
 
 import { getQuizzesService } from "@entities/quiz/server"
-import { QuizzesList } from "./quizzes-list"
+import { AllQuizzesList } from "./all-quizzes-list"
 
-export async function QuizzesListServer() {
+export async function AllQuizzesList_server() {
     const quizzes = await getQuizzesService.getAll()
 
     if (quizzes.type === "left") {
         return <div>error</div>
     }
 
-    return <QuizzesList quizzes={quizzes.value} />
+    return <AllQuizzesList quizzes={quizzes.value} />
 }
