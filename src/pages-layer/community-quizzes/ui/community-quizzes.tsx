@@ -1,8 +1,7 @@
 import { Typography } from "@shared/ui/typography"
 import cl from "./community-quizzes.module.scss"
 import clsx from "clsx"
-import { CreateQuizModal_server } from "@features/quiz/create/server"
-import { Suspense } from "react"
+import { CreateQuizRedirect } from "@features/quiz/create"
 
 export function CommunityQuizzes() {
     return (
@@ -13,9 +12,7 @@ export function CommunityQuizzes() {
                     cl.actionsBar
                 )}
             >
-                <Suspense fallback={"loading..."}>
-                    <CreateQuizModal_server />
-                </Suspense>
+                <CreateQuizRedirect />
             </div>
             <div className={cl.communityQuizzesPage__content}>
                 <Typography variant='h3'>

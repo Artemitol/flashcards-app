@@ -5,6 +5,7 @@ import { QuizCachingConfig, quizRepository } from "@entities/quiz/server"
 import { sessionService } from "@entities/user/server"
 import { FormState } from "@shared/model/server-actions"
 import { revalidatePath, revalidateTag } from "next/cache"
+import { redirect } from "next/navigation"
 import z from "zod"
 
 const questionIdSchema = z
@@ -128,6 +129,8 @@ export async function createQuizAction(
         revalidateTag(QuizCachingConfig.baseKey)
         revalidatePath("/quizzes")
         revalidatePath("/community-quizzes")
+
+        redirect("/quizzes")
     }
 
     return {
