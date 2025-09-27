@@ -1,8 +1,13 @@
 "use server"
 
 import { validateQuestionsExistenceService } from "@entities/question/server"
+import {
+    QuizQuestionDB,
+    quizQuestionsRepository,
+} from "@entities/quiz-question/server"
 import { QuizCachingConfig, quizRepository } from "@entities/quiz/server"
 import { sessionService } from "@entities/user/server"
+import { dbClient } from "@shared/model/db/server"
 import { FormState } from "@shared/model/server-actions"
 import { revalidatePath, revalidateTag } from "next/cache"
 import { redirect } from "next/navigation"
@@ -14,9 +19,12 @@ const questionIdSchema = z
     .nonnegative("id cannot be negative number")
 
 const quizFormSchema = z.object({
-    name: z.string().max(200, "max 200 symbols"),
-    description: z.string().max(500, "max 500 symbols"),
-    questions: z.array(questionIdSchema),
+    name: z.string().min(10, "min 10 symbols").max(200, "max 200 symbols"),
+    description: z
+        .string()
+        .min(100, "min 100 symbols")
+        .max(500, "max 500 symbols"),
+    questions: z.array(questionIdSchema).min(3, "min 3 questions"),
 })
 
 type ActionState = FormState<{
@@ -31,8 +39,14 @@ export async function createQuizAction(
     prevState: ActionState,
     formData: FormData
 ): Promise<ActionState> {
-    const dataObj = Object.fromEntries(formData.entries())
+    const dataObj = {
+        name: formData.get("name"),
+        description: formData.get("description"),
+        questions: formData.getAll("questions").map((q) => Number(q)),
+    }
     const dataValidationResult = quizFormSchema.safeParse(dataObj)
+
+    console.log(dataObj)
 
     if (!dataValidationResult.success) {
         const err = z.flattenError(dataValidationResult.error)
@@ -125,7 +139,27 @@ export async function createQuizAction(
             formData,
             isSuccess: false,
         }
-    } else if (createReq.type === "right") {
+    }
+
+    const quizQuestionsRelations: QuizQuestionDB[] = parsedData.questions.map(
+        (questionId) => ({
+            questionId: questionId,
+            quizId: createReq.value.id,
+        })
+    )
+
+    const relationsReq = await quizQuestionsRepository.insertMany(
+        quizQuestionsRelations
+    )
+
+    if (relationsReq.type === "left") {
+        return {
+            message: "cant create quiz now, try later",
+            errors: {},
+            formData,
+            isSuccess: false,
+        }
+    } else if (relationsReq.type === "right") {
         revalidateTag(QuizCachingConfig.baseKey)
         revalidatePath("/quizzes")
         revalidatePath("/community-quizzes")

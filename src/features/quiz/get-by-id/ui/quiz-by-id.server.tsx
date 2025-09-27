@@ -24,6 +24,8 @@ export async function QuizByIdServer({
         return <div>something went wrong...</div>
     }
 
+    console.log(quiz.value.questions)
+
     return (
         <div className={cl.quizById}>
             <Typography variant='h2' className={cl.quizById__title}>

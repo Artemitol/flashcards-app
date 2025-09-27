@@ -1,4 +1,4 @@
-import { dbClient, quizzes } from "@shared/model/db/server"
+import { AppTransaction, dbClient, quizzes } from "@shared/model/db/server"
 import { getTableColumns, SQL } from "drizzle-orm"
 import { fromQuizWithRelationsDBtoQuizModel } from "../model/domain"
 import { left, right } from "@shared/lib/either"
@@ -56,6 +56,26 @@ const insertOne = async (quizToInsert: QuizInsertDB) => {
     }
 }
 
+const insertOneTransacted = async (
+    quizToInsert: QuizInsertDB,
+    transaction: AppTransaction
+) => {
+    try {
+        const [req] = await transaction
+            .insert(quizzes)
+            .values(quizToInsert)
+            .returning()
+
+        return right(req)
+    } catch (err) {
+        transaction.rollback()
+        return left({
+            message: "cant-insert-quiz-now",
+            err,
+        })
+    }
+}
+
 const getOne = async (where?: SQL) => {
     try {
         const data = await dbClient.query.quizzes.findFirst({
@@ -101,5 +121,6 @@ export const quizRepository = {
     getMany: getAll,
     getOne,
     insertOne,
+    insertOneTransacted,
     columns,
 }
