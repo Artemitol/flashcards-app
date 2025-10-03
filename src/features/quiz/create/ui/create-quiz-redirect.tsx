@@ -7,7 +7,7 @@ import { MouseEvent } from "react"
 type CreateQuestionWithRedirectProps = React.ComponentProps<"button"> & {}
 
 export function CreateQuizRedirect(props: CreateQuestionWithRedirectProps) {
-    const { children = "Create question", onClick, ...rest } = props
+    const { children = "Create quiz", onClick, ...rest } = props
 
     const router = useRouter()
 

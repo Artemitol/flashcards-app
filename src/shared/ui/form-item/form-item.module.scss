@@ -1,0 +1,10 @@
+.formItem {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 0.5rem;
+
+    &__error {
+        color: var(--color-red-500);
+    }
+}
