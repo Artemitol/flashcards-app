@@ -18,12 +18,14 @@ import Link from "next/link"
 
 type AppSidebarProps = React.ComponentProps<typeof Sidebar> & {
     footerSlot?: React.ReactNode
+    isVerified?: boolean
     navigation: NavLink[]
 }
 
 export function AppSidebar({
     footerSlot,
     navigation,
+    isVerified,
     ...props
 }: AppSidebarProps) {
     return (
@@ -50,7 +52,7 @@ export function AppSidebar({
                 </SidebarMenu>
             </SidebarHeader>
             <SidebarContent>
-                <NavMain items={navigation} />
+                <NavMain items={navigation} isVerified={isVerified} />
             </SidebarContent>
             <SidebarFooter>
                 {footerSlot || (

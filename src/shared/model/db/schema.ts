@@ -5,6 +5,7 @@ import {
     integer,
     timestamp,
     primaryKey,
+    boolean,
 } from "drizzle-orm/pg-core"
 import { relations } from "drizzle-orm"
 
@@ -24,6 +25,7 @@ export const quizzes = pgTable("quiz", {
 
     title: text("title"),
     description: text("description"),
+    isAdmin: boolean("is_admin").default(false).notNull(),
     createdAt: timestamp("created_at").defaultNow().notNull(),
 
     creatorId: integer("creator_id").notNull(),

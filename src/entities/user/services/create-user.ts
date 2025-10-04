@@ -14,21 +14,28 @@ export const createUser = async ({
     username: string
     password: string
 }) => {
-    const existingUser = await userRepository.getUser(
-        or(eq(users.username, username), eq(users.email, username))
-    )
+    try {
+        const existingUser = await userRepository.getUser(
+            or(eq(users.username, username), eq(users.email, username))
+        )
 
-    if (existingUser) {
-        return left("user-already-exists")
+        if (existingUser) {
+            return left("user-already-exists")
+        }
+
+        const { hashedPassword, salt } = await hashPassword({ password })
+
+        const newUser = await userRepository.createUser({
+            username,
+            password: hashedPassword,
+            salt,
+        })
+
+        return right(fromDbUserToUserModel(newUser))
+    } catch (err) {
+        return left({
+            message: "Unexpected error while creating user",
+            err,
+        })
     }
-
-    const { hashedPassword, salt } = await hashPassword({ password })
-
-    const newUser = await userRepository.createUser({
-        username,
-        password: hashedPassword,
-        salt,
-    })
-
-    return right(fromDbUserToUserModel(newUser))
 }

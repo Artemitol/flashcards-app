@@ -6,6 +6,7 @@ import { unstable_cache } from "next/cache"
 import { BASE_CACHE_REVALIDATION_TIME } from "@shared/config/cache"
 import { QuestionId } from "@kernel/ids"
 import { eq } from "drizzle-orm"
+import { QuestionCaching } from "../config/cache"
 
 const getById = (questionId: QuestionId) =>
     unstable_cache(
@@ -23,7 +24,7 @@ const getById = (questionId: QuestionId) =>
         [questionId.toString()],
         {
             revalidate: BASE_CACHE_REVALIDATION_TIME,
-            tags: ["questions", "by-id"],
+            tags: QuestionCaching.byIdCacher,
         }
     )()
 
@@ -37,7 +38,7 @@ const getAll = unstable_cache(
 
         return right(data.value)
     },
-    ["questions"],
+    QuestionCaching.listCacher,
     {
         revalidate: BASE_CACHE_REVALIDATION_TIME,
     }

@@ -7,6 +7,7 @@ import cl from "./auth-actions.module.scss"
 import { NavUser } from "@shared/ui/nav-user"
 import { SessionPayload } from "@entities/user"
 import { Either } from "@shared/lib/either"
+import { LogOutButton } from "@features/auth/log-out"
 
 export function AuthActions({
     session,
@@ -30,6 +31,7 @@ export function AuthActions({
                 name: session.value.username,
                 email: session.value.email || undefined,
             }}
+            logoutTrigger={<LogOutButton />}
         />
     )
 }

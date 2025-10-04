@@ -3,6 +3,7 @@
 import { z } from "zod"
 import { LoginFormState } from "../model/domain"
 import { sessionService, verifyUserPassword } from "@entities/user/server"
+import { revalidatePath } from "next/cache"
 
 const formDataSchema = z.object({
     login: z.string(),
@@ -36,6 +37,8 @@ export async function loginAction(
     })
 
     if (verification.type === "right") {
+        revalidatePath("/", "layout")
+
         await sessionService.createSession({
             userId: verification.value.id,
             username: verification.value.username,

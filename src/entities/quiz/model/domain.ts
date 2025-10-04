@@ -12,6 +12,7 @@ export type QuizModel = {
     creator: Creator
     createdAt: Date
     questions: QuestionModel[]
+    isAdmin: boolean
 }
 
 type Creator = {
@@ -33,4 +34,5 @@ export const fromQuizWithRelationsDBtoQuizModel: Adapter<
         id: raw.creatorId,
         username: raw.creator.username,
     },
+    isAdmin: raw.isAdmin,
 })

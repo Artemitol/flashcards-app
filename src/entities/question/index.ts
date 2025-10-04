@@ -1,10 +1,5 @@
-export { QuestionFlipCard } from "./ui/question-flip-card"
-
 export type { QuestionModel } from "./model/domain/question"
-export {
-    questionActions,
-    questionSelectors,
-    questionsSlice,
-} from "./model/questions.slice"
 
-export { useQuestionCards } from "./lib/use-question-cards"
+export { QuestionFlipCard } from "./ui/question-flip-card"
+export { QuestionCard } from "./ui/question-card/question-card"
+export { QuestionsTable } from "./ui/questions-table/questions-table"

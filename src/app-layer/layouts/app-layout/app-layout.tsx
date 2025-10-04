@@ -1,15 +1,7 @@
+import { verifyUser } from "@features/auth/verify-user/server"
 import { NavBarConfig } from "../../config/navbar-links"
 import { AppSidebar } from "@shared/ui/app-sidebar"
-import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbList,
-    BreadcrumbPage,
-    BreadcrumbSeparator,
-} from "@shared/ui/breadcrumb"
 import { UserSkeleton } from "@shared/ui/nav-user"
-import { Separator } from "@shared/ui/separator"
 import {
     SidebarInset,
     SidebarProvider,
@@ -18,10 +10,14 @@ import {
 import { AuthActionsServer } from "@widgets/auth-actions/server"
 import { PropsWithChildren, Suspense } from "react"
 
-export function AppLayout({ children }: PropsWithChildren) {
+export async function AppLayout({ children }: PropsWithChildren) {
+    const req = await verifyUser()
+    const isVerified = req.type === "right"
+
     return (
         <SidebarProvider>
             <AppSidebar
+                isVerified={isVerified}
                 footerSlot={
                     <Suspense fallback={<UserSkeleton />}>
                         <AuthActionsServer />
@@ -35,7 +31,7 @@ export function AppLayout({ children }: PropsWithChildren) {
                         <SidebarTrigger className='-ml-1' />
                     </div>
                 </header>
-                <div className='px-4'>{children}</div>
+                <div className='px-4 h-full w-full'>{children}</div>
             </SidebarInset>
         </SidebarProvider>
     )
