@@ -1,1 +1,1 @@
-export { CommunityQuizzes } from "./ui/community-quizzes"
+export { CommunityQuizzesPage } from "./ui/community-quizzes"

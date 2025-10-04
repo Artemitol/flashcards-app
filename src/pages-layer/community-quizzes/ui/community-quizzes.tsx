@@ -1,9 +1,9 @@
-import { Typography } from "@shared/ui/typography"
 import cl from "./community-quizzes.module.scss"
 import clsx from "clsx"
 import { CreateQuizRedirect } from "@features/quiz/create"
+import { CommunityQuizzes_server } from "@features/quiz/get-all-community/server"
 
-export function CommunityQuizzes() {
+export function CommunityQuizzesPage() {
     return (
         <section className={cl.communityQuizzesPage}>
             <div
@@ -15,10 +15,7 @@ export function CommunityQuizzes() {
                 <CreateQuizRedirect />
             </div>
             <div className={cl.communityQuizzesPage__content}>
-                <Typography variant='h3'>
-                    Now this feature in production, come back later, but you can
-                    create quiz
-                </Typography>
+                <CommunityQuizzes_server />
             </div>
         </section>
     )
