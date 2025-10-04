@@ -28,12 +28,14 @@ import { Skeleton } from "./skeleton"
 
 export function NavUser({
     user,
+    logoutTrigger,
 }: {
     user: {
         name: string
         email?: string
         avatar?: string
     }
+    logoutTrigger?: React.ReactNode
 }) {
     const { isMobile } = useSidebar()
 
@@ -116,10 +118,7 @@ export function NavUser({
                             </DropdownMenuItem>
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>
-                            <LogOut />
-                            Log out
-                        </DropdownMenuItem>
+                        <DropdownMenuItem>{logoutTrigger}</DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             </SidebarMenuItem>

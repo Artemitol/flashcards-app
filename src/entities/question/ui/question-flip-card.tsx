@@ -1,3 +1,5 @@
+"use client"
+
 import clsx from "clsx"
 import { useEffect, useState } from "react"
 import { ChevronDownIcon, ChevronUpIcon } from "lucide-react"
@@ -35,7 +37,7 @@ export function QuestionFlipCard({ card }: QuestionCardProps) {
                             cl.card__title_small
                         )}
                     >
-                        Тема: {card.tags.toString()}
+                        Theme: {card.tags.toString()}
                     </h4>
                 </div>
                 <div className={cl.card__number}>
@@ -48,7 +50,7 @@ export function QuestionFlipCard({ card }: QuestionCardProps) {
                 </div>
             )}
             <button type='button' onClick={clickHandler}>
-                <span>Показать ответ </span>
+                <span>Show answer </span>
                 <span>
                     {isAnswerRevealed ? <ChevronUpIcon /> : <ChevronDownIcon />}
                 </span>

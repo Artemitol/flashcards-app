@@ -3,6 +3,7 @@ import { quizRepository } from "../repositories/quiz-repository"
 import { QuizId } from "@kernel/ids"
 import { unstable_cache } from "next/cache"
 import { BASE_CACHE_REVALIDATION_TIME } from "@shared/config/cache"
+import { QuizCachingConfig } from "../config/cache"
 
 const getAll = unstable_cache(
     async () => {
@@ -10,7 +11,7 @@ const getAll = unstable_cache(
 
         return data
     },
-    ["quizzes"],
+    QuizCachingConfig.listCacher,
     {
         revalidate: BASE_CACHE_REVALIDATION_TIME,
     }
@@ -28,7 +29,7 @@ const getById = (id: QuizId) =>
         [id.toString()],
         {
             revalidate: BASE_CACHE_REVALIDATION_TIME,
-            tags: ["quizzes", "by-id"],
+            tags: QuizCachingConfig.byIdCacher,
         }
     )()
 

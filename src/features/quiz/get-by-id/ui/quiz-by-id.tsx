@@ -1,10 +1,20 @@
 "use client"
 
-import { QuestionFlipCard, QuestionModel } from "@entities/question"
+import { type QuestionModel, QuestionFlipCard } from "@entities/question"
 import { useQuiz } from "../lib/use-quiz"
+import { QuizId } from "@kernel/ids"
 
-export function QuizById({ questions }: { questions: QuestionModel[] }) {
-    const { currentCard } = useQuiz(questions)
+export function QuizById({
+    questions,
+    id,
+}: {
+    questions: QuestionModel[]
+    id: QuizId
+}) {
+    const { currentCard } = useQuiz({
+        questions,
+        quizId: id,
+    })
 
     return <QuestionFlipCard card={currentCard} />
 }

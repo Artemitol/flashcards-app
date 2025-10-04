@@ -1,25 +1,31 @@
-import {
-    questionActions,
-    QuestionModel,
-    questionSelectors,
-} from "@entities/question"
-import { useAppStore } from "@shared/lib/redux"
+import { QuestionModel } from "@entities/question"
+import { quizSliceActions, quizSliceSelectors } from "@entities/quiz"
+import { useAppStore, useAppDispatch, useAppSelector } from "@shared/lib/redux"
 import { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
 
-export function useQuiz(questions: QuestionModel[]) {
-    const dispatch = useDispatch()
+type UseQuizOptions = {
+    quizId: number
+    questions: QuestionModel[]
+}
+
+export function useQuiz({ questions, quizId }: UseQuizOptions) {
+    const dispatch = useAppDispatch()
     const store = useAppStore()
-    const currentCard = useSelector(questionSelectors.currentCard)
+    const currentCard = useAppSelector((state) =>
+        quizSliceSelectors.currentCard(state, quizId)
+    )
 
     useEffect(() => {
-        if (!questionSelectors.isIdle(store.getState())) {
-            console.log("use-effect-quiz")
-
-            dispatch(questionActions.firstFetch())
-            dispatch(questionActions.setQuestions(questions))
+        if (!quizSliceSelectors.byId(store.getState(), quizId).isIdle) {
+            dispatch(quizSliceActions.firstFetch(quizId))
+            dispatch(
+                quizSliceActions.setQuestions({
+                    questions,
+                    quizId,
+                })
+            )
         }
-    }, [dispatch, questions, store])
+    }, [dispatch, questions, quizId, store])
 
     return { currentCard }
 }

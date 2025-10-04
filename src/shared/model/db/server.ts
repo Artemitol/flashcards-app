@@ -7,3 +7,5 @@ export {
     quizzes,
     tags,
 } from "./schema"
+
+export type { AppTransaction } from "./connection"
