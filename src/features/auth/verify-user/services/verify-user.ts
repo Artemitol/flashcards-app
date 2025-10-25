@@ -1,6 +1,7 @@
+import "server-only"
+
 import { sessionService } from "@entities/user/server"
 import { left, right } from "@shared/lib/either"
-import "server-only"
 
 export async function verifyUser() {
     const { session } = await sessionService.verifySession()
