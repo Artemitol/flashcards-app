@@ -1,0 +1,17 @@
+.orbGroup {
+    display: contents;
+
+    &__button {
+        z-index: 2;
+        pointer-events: none;
+    }
+
+    &__orbWrapper {
+        margin-block: auto;
+        aspect-ratio: 1;
+        height: 700px;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+    }
+}
