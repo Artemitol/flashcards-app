@@ -1,6 +1,6 @@
 {
-  "id": "fe3d2aeb-3870-4f6b-9dff-66181df28ec5",
-  "prevId": "2eb857cc-b3b9-4422-80a7-fd40ad0bc00d",
+  "id": "7730353e-6e10-42d3-a087-8c5815ef4bc8",
+  "prevId": "fe3d2aeb-3870-4f6b-9dff-66181df28ec5",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -12,13 +12,13 @@
           "name": "admin_id",
           "type": "integer",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "quiz_id": {
           "name": "quiz_id",
           "type": "integer",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         }
       },
       "indexes": {},
@@ -32,6 +32,45 @@
           ]
         }
       },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.admin": {
+      "name": "admin",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "role": {
+          "name": "role",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'admin'"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "policies": {},
       "checkConstraints": {},
