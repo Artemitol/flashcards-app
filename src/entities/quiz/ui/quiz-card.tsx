@@ -28,7 +28,9 @@ export function QuizCard(props: QuizCardProps) {
     return (
         <Card className={cl.quizCard} onClick={clickHandler}>
             <CardHeader>
-                <CardTitle>{quiz.name}</CardTitle>
+                <CardTitle className={cl.title}>
+                    {quiz.name || "Anonymous quiz"}
+                </CardTitle>
             </CardHeader>
             <CardFooter>creator: {quiz.creator.username}</CardFooter>
         </Card>

@@ -1,0 +1,14 @@
+.emptyPlaceholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.message {
+    color: var(--muted-foreground);
+}
+
+.icon {
+    color: var(--muted-foreground);
+}

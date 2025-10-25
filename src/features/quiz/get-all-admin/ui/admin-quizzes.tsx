@@ -1,4 +1,5 @@
 import { QuizModel, QuizCardsList } from "@entities/quiz"
+import cl from "./admin-quizzes.module.scss"
 
 type QuizzesListProps = {
     quizzes: QuizModel[]
@@ -7,5 +8,5 @@ type QuizzesListProps = {
 export function AdminQuizzes(props: QuizzesListProps) {
     const { quizzes } = props
 
-    return <QuizCardsList quizzes={quizzes} />
+    return <QuizCardsList className={cl.adminQuizzes} quizzes={quizzes} />
 }
