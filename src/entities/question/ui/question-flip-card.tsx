@@ -1,7 +1,7 @@
 "use client"
 
 import clsx from "clsx"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { ChevronDownIcon, ChevronUpIcon } from "lucide-react"
 import { QuestionModel } from "../model/domain/question"
 import cl from "./question-flip-card.module.scss"
@@ -12,10 +12,6 @@ type QuestionCardProps = {
 
 export function QuestionFlipCard({ card }: QuestionCardProps) {
     const [isAnswerRevealed, setIsAnswerRevealed] = useState<boolean>(false)
-
-    useEffect(() => {
-        setIsAnswerRevealed(false)
-    }, [card])
 
     function clickHandler() {
         setIsAnswerRevealed((prev) => !prev)

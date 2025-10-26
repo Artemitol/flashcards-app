@@ -160,7 +160,7 @@ export async function createQuizAction(
             isSuccess: false,
         }
     } else if (relationsReq.type === "right") {
-        revalidateTag(QuizCachingConfig.baseKey)
+        revalidateTag(QuizCachingConfig.baseKey, "max")
         revalidatePath("/quizzes")
         revalidatePath("/community-quizzes")
 
