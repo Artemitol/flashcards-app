@@ -1,7 +1,7 @@
 "use client"
 
 import clsx from "clsx"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { ChevronDownIcon, ChevronUpIcon } from "lucide-react"
 import { QuestionModel } from "../model/domain/question"
 import cl from "./question-flip-card.module.scss"
@@ -22,7 +22,7 @@ export function QuestionFlipCard({ card }: QuestionCardProps) {
     }
 
     return (
-        <article className={cl.card} key={card.id}>
+        <article className={cl.card}>
             <div className={cl.card__header}>
                 <div className={cl.card__headerText}>
                     <h3 className={cl.card__title}>{card.question}</h3>

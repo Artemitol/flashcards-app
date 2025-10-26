@@ -16,5 +16,5 @@ export function QuizById({
         quizId: id,
     })
 
-    return <QuestionFlipCard card={currentCard} />
+    return <QuestionFlipCard key={currentCard?.id} card={currentCard} />
 }
