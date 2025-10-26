@@ -1,3 +1,5 @@
+import nextCoreWebVitals from "eslint-config-next/core-web-vitals"
+import nextTypescript from "eslint-config-next/typescript"
 import { dirname } from "path"
 import { fileURLToPath } from "url"
 import prettierPlugin from "eslint-plugin-prettier"
@@ -7,19 +9,30 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
 const compat = new FlatCompat({
-  baseDirectory: __dirname,
+    baseDirectory: __dirname,
 })
 
 const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript", "prettier"),
-  {
-    plugins: {
-      prettier: prettierPlugin,
+    ...nextCoreWebVitals,
+    ...nextTypescript,
+    ...compat.extends("prettier"),
+    {
+        plugins: {
+            prettier: prettierPlugin,
+        },
+        rules: {
+            "prettier/prettier": "warn",
+        },
     },
-    rules: {
-      "prettier/prettier": "warn",
+    {
+        ignores: [
+            "node_modules/**",
+            ".next/**",
+            "out/**",
+            "build/**",
+            "next-env.d.ts",
+        ],
     },
-  },
 ]
 
 export default eslintConfig

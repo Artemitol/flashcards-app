@@ -78,7 +78,7 @@ export async function createNewQuestionAction(
     }
 
     if (req.type === "right") {
-        revalidateTag(QuestionCaching.baseKey)
+        revalidateTag(QuestionCaching.baseKey, "max")
 
         return {
             isSuccess: true,

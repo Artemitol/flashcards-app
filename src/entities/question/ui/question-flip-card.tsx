@@ -13,10 +13,6 @@ type QuestionCardProps = {
 export function QuestionFlipCard({ card }: QuestionCardProps) {
     const [isAnswerRevealed, setIsAnswerRevealed] = useState<boolean>(false)
 
-    useEffect(() => {
-        setIsAnswerRevealed(false)
-    }, [card])
-
     function clickHandler() {
         setIsAnswerRevealed((prev) => !prev)
     }
@@ -26,7 +22,7 @@ export function QuestionFlipCard({ card }: QuestionCardProps) {
     }
 
     return (
-        <article className={cl.card}>
+        <article className={cl.card} key={card.id}>
             <div className={cl.card__header}>
                 <div className={cl.card__headerText}>
                     <h3 className={cl.card__title}>{card.question}</h3>

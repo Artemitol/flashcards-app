@@ -52,7 +52,6 @@ export function CreateNewQuestion(props: CreateNewQuestionProps) {
     useEffect(() => {
         if (state.isSuccess) {
             toast("Successfully created new question")
-            setIsModalOpen(false)
         }
     }, [state.isSuccess])
 
